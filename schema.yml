@@ -1,0 +1,483 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/bounties/:
+    get:
+      operationId: bounties_list
+      tags:
+      - bounties
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bounty'
+          description: ''
+    post:
+      operationId: bounties_create
+      tags:
+      - bounties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bounty'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Bounty'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Bounty'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bounty'
+          description: ''
+  /api/bounties/{id}/:
+    get:
+      operationId: bounties_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bounty.
+        required: true
+      tags:
+      - bounties
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bounty'
+          description: ''
+    put:
+      operationId: bounties_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bounty.
+        required: true
+      tags:
+      - bounties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bounty'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Bounty'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Bounty'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bounty'
+          description: ''
+    patch:
+      operationId: bounties_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bounty.
+        required: true
+      tags:
+      - bounties
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBounty'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBounty'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBounty'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bounty'
+          description: ''
+    delete:
+      operationId: bounties_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bounty.
+        required: true
+      tags:
+      - bounties
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/submissions/:
+    get:
+      operationId: submissions_list
+      tags:
+      - submissions
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Submission'
+          description: ''
+    post:
+      operationId: submissions_create
+      tags:
+      - submissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Submission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Submission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Submission'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+          description: ''
+  /api/submissions/{id}/:
+    get:
+      operationId: submissions_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this submission.
+        required: true
+      tags:
+      - submissions
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+          description: ''
+    put:
+      operationId: submissions_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this submission.
+        required: true
+      tags:
+      - submissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Submission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Submission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Submission'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+          description: ''
+    patch:
+      operationId: submissions_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this submission.
+        required: true
+      tags:
+      - submissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSubmission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSubmission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSubmission'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+          description: ''
+    delete:
+      operationId: submissions_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this submission.
+        required: true
+      tags:
+      - submissions
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /api/submissions/{id}/evaluate/:
+    post:
+      operationId: submissions_evaluate_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this submission.
+        required: true
+      tags:
+      - submissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Submission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Submission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Submission'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+          description: ''
+components:
+  schemas:
+    Bounty:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        submissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Submission'
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        success_criteria:
+          type: string
+          description: Strict instructions for the AI reviewer
+        escrow_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+        paypal_order_id:
+          type: string
+          readOnly: true
+          nullable: true
+      required:
+      - escrow_amount
+      - id
+      - paypal_order_id
+      - status
+      - submissions
+      - success_criteria
+      - title
+    PatchedBounty:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        submissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Submission'
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        success_criteria:
+          type: string
+          description: Strict instructions for the AI reviewer
+        escrow_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+        paypal_order_id:
+          type: string
+          readOnly: true
+          nullable: true
+    PatchedSubmission:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        developer_paypal_email:
+          type: string
+          format: email
+          description: Where the AI sends the payout
+          maxLength: 254
+        code_content:
+          type: string
+        ai_status:
+          type: string
+          readOnly: true
+        ai_feedback:
+          type: string
+          readOnly: true
+          nullable: true
+        bounty:
+          type: integer
+    StatusEnum:
+      enum:
+      - open
+      - funded
+      - completed
+      type: string
+      description: |-
+        * `open` - Open
+        * `funded` - Funded (In Escrow)
+        * `completed` - Completed
+    Submission:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        developer_paypal_email:
+          type: string
+          format: email
+          description: Where the AI sends the payout
+          maxLength: 254
+        code_content:
+          type: string
+        ai_status:
+          type: string
+          readOnly: true
+        ai_feedback:
+          type: string
+          readOnly: true
+          nullable: true
+        bounty:
+          type: integer
+      required:
+      - ai_feedback
+      - ai_status
+      - bounty
+      - code_content
+      - developer_paypal_email
+      - id
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
