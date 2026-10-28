@@ -63,3 +63,5 @@ class SubmissionViewSet(viewsets.ModelViewSet):
                 {'error': str(e)}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+def dashboard_view(request):
+    return render(request, 'dashboard.html')
