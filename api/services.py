@@ -12,7 +12,7 @@ def evaluate_submission(criteria, code):
     prompt = f"Criteria: {criteria}\n\nSubmitted Code:\n{code}"
     
     response = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="openai/gpt-oss-20b",
         messages=[
             {
                 "role": "system", 
