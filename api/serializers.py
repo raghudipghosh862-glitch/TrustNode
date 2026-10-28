@@ -13,4 +13,4 @@ class BountySerializer(serializers.ModelSerializer):
     class Meta:
         model = Bounty
         fields = '__all__'
-        read_only_fields = ['status', 'paypal_order_id']
+        read_only_fields = ['status', 'payout_batch_id']
