@@ -51,7 +51,9 @@ In the freelance developer ecosystem, sponsors spend hours manually reviewing co
 
 
 6. **Access the Submission Portal:**
- [http://127.0.0.1:8000/api/submit/]
+   ```bash
+   [http://127.0.0.1:8000/api/submit/]
 
 7. **Access the Sponsor Dashboard:**
-  [http://127.0.0.1:8000/api/dashboard/]
+   ```bash
+   [http://127.0.0.1:8000/api/dashboard/]
