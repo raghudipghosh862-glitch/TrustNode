@@ -23,6 +23,12 @@ In the freelance developer ecosystem, sponsors spend hours manually reviewing co
 * **Payments:** PayPal Payouts API (Sandbox Environment)
 * **Database:** SQLite (Development) / PostgreSQL (Production)
 
+## 🌍 Live Demo
+The application is deployed on Render and connected to a live production PostgreSQL database. You can test the full automated escrow flow here:
+
+* **Freelancer Submission Portal:** [https://trustnode-nkx1.onrender.com/api/submit/](https://trustnode-nkx1.onrender.com/api/submit/)
+* **Sponsor Dashboard:** [https://trustnode-nkx1.onrender.com/api/dashboard/](https://trustnode-nkx1.onrender.com/api/dashboard/)
+
 ## 🚀 Local Setup Instructions
 
 1. **Clone the repository:**
