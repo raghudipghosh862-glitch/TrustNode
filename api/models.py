@@ -12,7 +12,7 @@ class Bounty(models.Model):
     success_criteria = models.TextField(help_text="Strict instructions for the AI reviewer")
     escrow_amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
-    paypal_order_id = models.CharField(max_length=100, blank=True, null=True)
+    paypal_batch_id = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.title
