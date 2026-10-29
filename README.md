@@ -41,13 +41,13 @@ In the freelance developer ecosystem, sponsors spend hours manually reviewing co
  **GROQ_API_KEY**=your_groq_api_key
 
 4. **Run Database Migrations:**
-  ```bash
-   python manage.py makemigrations
-   python manage.py migrate
+   ```bash
+    python manage.py makemigrations
+    python manage.py migrate
 
 5. **Start the Development Server:**
-  ```bash
-   python manage.py runserver
+   ```bash
+    python manage.py runserver
 
 
 6. **Access the Submission Portal:**
