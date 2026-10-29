@@ -80,12 +80,15 @@
                 // 4. Handle UI based on success or failure
                 statusDiv.classList.remove('hidden', 'bg-red-100', 'text-red-700');
                 if (response.ok) {
-                    statusDiv.classList.add('bg-green-100', 'text-green-700');
-                    statusDiv.innerHTML = `Success! Code Approved. <br> Payout Sent: ${data.payout_batch_id || 'Processing'}`;
+                    statusDiv.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                    if (data.ai_status === 'approved') {
+                        statusDiv.classList.add('bg-green-100', 'text-green-700');
+                        statusDiv.innerHTML = `Success! Code Approved. <br> Payout Sent: ${data.payout_batch_id}`;
+                    } else {
+                        statusDiv.classList.add('bg-yellow-100', 'text-yellow-700');
+                        statusDiv.innerHTML = `Code Rejected by AI. <br> Feedback: ${data.ai_feedback}`;
+                    }
                     document.getElementById('submissionForm').reset();
-                } else {
-                    statusDiv.classList.add('bg-red-100', 'text-red-700');
-                    statusDiv.innerText = `Error: ${data.detail || 'Evaluation failed.'}`;
                 }
             } catch (error) {
                 statusDiv.classList.remove('hidden');
