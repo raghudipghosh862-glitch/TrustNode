@@ -23,7 +23,7 @@ In the freelance developer ecosystem, sponsors spend hours manually reviewing co
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/yourusername/TrustNode.git](https://github.com/yourusername/TrustNode.git)
+   git clone [https://github.com/raghudipghosh862-glitch/TrustNode.git](https://github.com/raghudipghosh862-glitch/TrustNode.git)
    cd TrustNode
 
 2. **Install dependencies:**
@@ -31,10 +31,13 @@ In the freelance developer ecosystem, sponsors spend hours manually reviewing co
     pip install -r requirements.txt
 
 3. **Set up Environment Variables:**
+
  Create a .env file in the root directory and add your API keys:
 
- **PAYPAL_CLIENT_ID**=your_paypal_sandbox_client_id
- **PAYPAL_SECRET**=your_paypal_sandbox_secret
+ **PAYPAL_CLIENT_ID**=your_paypal_sandbox_client_id,
+
+ **PAYPAL_SECRET**=your_paypal_sandbox_secret,
+
  **GROQ_API_KEY**=your_groq_api_key
 
 4. **Run Database Migrations:**
@@ -46,8 +49,9 @@ In the freelance developer ecosystem, sponsors spend hours manually reviewing co
   ```bash
    python manage.py runserver
 
+
 6. **Access the Submission Portal:**
-  http://127.0.0.1:8000/api/submit/
+ [http://127.0.0.1:8000/api/submit/]
 
 7. **Access the Sponsor Dashboard:**
-  http://127.0.0.1:8000/api/dashboard/
+  [http://127.0.0.1:8000/api/dashboard/]
