@@ -28,6 +28,7 @@ The application is deployed on Render and connected to a live production Postgre
 
 * **Freelancer Submission Portal:** [https://trustnode-nkx1.onrender.com/api/submit/](https://trustnode-nkx1.onrender.com/api/submit/)
 * **Sponsor Dashboard:** [https://trustnode-nkx1.onrender.com/api/dashboard/](https://trustnode-nkx1.onrender.com/api/dashboard/)
+* **Demo Video:** [Watch the TrustNode Demo on YouTube](https://youtu.be/f32bIl6P4PU?si=Nhi0jC3ELN9otwjT)
 
 ## 🚀 Local Setup Instructions
 
