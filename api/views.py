@@ -34,15 +34,27 @@ class SubmissionViewSet(viewsets.ModelViewSet):
             submission.ai_feedback = ai_result.get('feedback', 'No feedback provided.')
             
             # 3. Trigger PayPal if approved
-            if submission.ai_status == 'approved':
+            # 3. Trigger PayPal if approved
+            if clean_status == 'approved':
+                print("DEBUGGING: TRIGGERING PAYPAL...")
+                
                 payout_response = release_escrow_funds(
                     receiver_email=submission.developer_paypal_email,
                     amount=bounty.escrow_amount,
                     reference_id=submission.id
                 )
-                # Extract and assign the Payout Batch ID
-                batch_id = payout_response['batch_header']['payout_batch_id']
+                
+                # Print the exact raw payload from PayPal to your terminal
+                print(f"RAW PAYPAL RESPONSE: {payout_response}")
+                
+                # Safely extract the ID regardless of Sandbox response structure
+                if 'batch_header' in payout_response:
+                    batch_id = payout_response['batch_header'].get('payout_batch_id', 'PAYMENT_SENT_NO_ID')
+                else:
+                    batch_id = payout_response.get('payout_batch_id', 'PAYMENT_SENT_NO_ID')
+                
                 submission.payout_batch_id = batch_id
+                print(f"DEBUGGING: SAVING BATCH ID '{batch_id}' TO DATABASE.")
             
             # 4. Save all updates to the database
             submission.save()
