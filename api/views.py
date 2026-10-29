@@ -65,3 +65,5 @@ class SubmissionViewSet(viewsets.ModelViewSet):
             )
 def dashboard_view(request):
     return render(request, 'dashboard.html')
+def submit_view(request):
+    return render(request, 'submit.html')

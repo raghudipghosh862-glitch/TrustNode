@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustNode - Freelancer Portal</title>
+    <!-- Tailwind CSS for modern, fast styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
+        <div class="mb-6 border-b pb-4">
+            <h1 class="text-2xl font-bold text-gray-800">Submit Bounty Solution</h1>
+            <p class="text-gray-500 text-sm">Upload your code for instant AI evaluation and automated PayPal payout.</p>
+        </div>
+
+        <form id="submissionForm" class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Bounty ID</label>
+                <input type="number" id="bountyId" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">PayPal Email Address</label>
+                <input type="email" id="paypalEmail" required placeholder="sb-xxxxx@business.example.com"
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Code Snippet</label>
+                <textarea id="codeSnippet" rows="6" required placeholder="Paste your solution here..."
+                    class="mt-1 block w-full px-3 py-2 font-mono text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn"
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                Submit & Evaluate
+            </button>
+        </form>
+
+        <!-- Status Message Area -->
+        <div id="statusMessage" class="mt-4 hidden p-4 rounded-md font-medium text-center"></div>
+    </div>
+
+    <script>
+        document.getElementById('submissionForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent page reload
+            
+            const btn = document.getElementById('submitBtn');
+            const statusDiv = document.getElementById('statusMessage');
+            
+            // 1. Change UI to Loading State
+            btn.innerText = "Evaluating Code & Processing Payment...";
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            statusDiv.classList.add('hidden');
+
+            // 2. Package the JSON payload
+            const payload = {
+                bounty: document.getElementById('bountyId').value,
+                developer_paypal_email: document.getElementById('paypalEmail').value,
+                code_snippet: document.getElementById('codeSnippet').value
+            };
+
+            try {
+                // 3. Send the fetch request to your Django REST endpoint
+                // Note: Adjust '/api/submissions/' if your Postman endpoint is named differently
+                const response = await fetch('/api/submissions/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                // 4. Handle UI based on success or failure
+                statusDiv.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                if (response.ok) {
+                    statusDiv.classList.add('bg-green-100', 'text-green-700');
+                    statusDiv.innerHTML = `Success! Code Approved. <br> Payout Sent: ${data.payout_batch_id || 'Processing'}`;
+                    document.getElementById('submissionForm').reset();
+                } else {
+                    statusDiv.classList.add('bg-red-100', 'text-red-700');
+                    statusDiv.innerText = `Error: ${data.detail || 'Evaluation failed.'}`;
+                }
+            } catch (error) {
+                statusDiv.classList.remove('hidden');
+                statusDiv.classList.add('bg-red-100', 'text-red-700');
+                statusDiv.innerText = "Network error. Please try again.";
+            } finally {
+                // Reset button state
+                btn.innerText = "Submit & Evaluate";
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+            }
+        });
+    </script>
+</body>
+</html>
