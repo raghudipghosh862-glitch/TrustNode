@@ -70,7 +70,7 @@ def release_escrow_funds(receiver_email, amount, reference_id):
                     "value": str(amount),
                     "currency": "USD"
                 },
-                "note": "Automated payout via Resolve.ai Escrow",
+                "note": "Automated payout via TrustNode Escrow",
                 "sender_item_id": str(reference_id),
                 "receiver": receiver_email
             }
