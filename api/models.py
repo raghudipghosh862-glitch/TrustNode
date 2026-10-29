@@ -23,6 +23,7 @@ class Submission(models.Model):
     code_content = models.TextField()
     ai_status = models.CharField(max_length=20, default='pending')
     ai_feedback = models.TextField(blank=True, null=True)
+    payout_batch_id = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f"Submission for {self.bounty.title}"
