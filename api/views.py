@@ -13,7 +13,7 @@ class BountyViewSet(viewsets.ModelViewSet):
 class SubmissionViewSet(viewsets.ModelViewSet):
     queryset = Submission.objects.all()
     serializer_class = SubmissionSerializer
-
+    
     # This handles the POST request from your submit.html frontend
     def create(self, request, *args, **kwargs):
         # 1. Create the submission
@@ -30,10 +30,14 @@ class SubmissionViewSet(viewsets.ModelViewSet):
                 code=submission.code_content
             )
             
-            submission.ai_status = ai_result.get('status', 'rejected')
+            # DEFINING clean_status HERE
+            clean_status = str(ai_result.get('status', 'rejected')).strip().lower()
+            
+            submission.ai_status = clean_status
             submission.ai_feedback = ai_result.get('feedback', 'No feedback provided.')
             
-            # 3. Trigger PayPal if approved
+            print(f"DEBUGGING AI STATUS: '{clean_status}'")
+            
             # 3. Trigger PayPal if approved
             if clean_status == 'approved':
                 print("DEBUGGING: TRIGGERING PAYPAL...")
@@ -55,6 +59,8 @@ class SubmissionViewSet(viewsets.ModelViewSet):
                 
                 submission.payout_batch_id = batch_id
                 print(f"DEBUGGING: SAVING BATCH ID '{batch_id}' TO DATABASE.")
+            else:
+                print("DEBUGGING: PAYPAL SKIPPED. STATUS WAS NOT 'approved'.")
             
             # 4. Save all updates to the database
             submission.save()
@@ -64,55 +70,10 @@ class SubmissionViewSet(viewsets.ModelViewSet):
             return Response(response_serializer.data, status=status.HTTP_201_CREATED)
             
         except Exception as e:
-            # Save the failure status if something crashes (e.g., API limits)
+            # Save the failure status if something crashes
             submission.ai_status = 'rejected'
             submission.ai_feedback = f'System Error: {str(e)}'
             submission.save()
-            return Response(
-                {'detail': str(e)}, 
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
-    # I kept your original evaluate action in case you want to manually trigger it later
-    @action(detail=True, methods=['post'])
-    def evaluate(self, request, pk=None):
-        submission = self.get_object()
-        bounty = submission.bounty
-        
-        # Prevent re-evaluating if already approved
-        if submission.ai_status == 'approved':
-            return Response(
-                {'detail': 'This submission has already been approved and paid.'}, 
-                status=status.HTTP_400_BAD_REQUEST
-            )
-            
-        try:
-            ai_result = evaluate_submission(
-                criteria=bounty.success_criteria, 
-                code=submission.code_content
-            )
-            
-            submission.ai_status = ai_result.get('status', 'rejected')
-            submission.ai_feedback = ai_result.get('feedback', 'No feedback provided.')
-            
-            if submission.ai_status == 'approved':
-                payout_response = release_escrow_funds(
-                    receiver_email=submission.developer_paypal_email,
-                    amount=bounty.escrow_amount,
-                    reference_id=submission.id
-                )
-                batch_id = payout_response['batch_header']['payout_batch_id']
-                submission.payout_batch_id = batch_id
-                
-            submission.save()
-            
-            return Response({
-                'status': 'success',
-                'ai_feedback': submission.ai_feedback,
-                'payout_batch_id': submission.payout_batch_id
-            })
-            
-        except Exception as e:
             return Response(
                 {'detail': str(e)}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
