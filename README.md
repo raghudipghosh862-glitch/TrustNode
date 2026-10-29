@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="Trustnode_logo.png" alt="TrustNode Logo" width="250">
+</p>
 # TrustNode 🚀
 **Automated AI-Powered Escrow & Code Evaluation Platform**
 
